@@ -129,35 +129,41 @@
 				var txtData = document.getElementById('txtData');
 				var data = txtData.value;
 				
-				for (var i = 0, row; row = table.rows[i]; i++) {
-					table.rows[i]
-					var inputv = table.rows[i].cells[2].querySelectorAll("input");
-					
-					var falta = new Object();
-					falta.ra = table.rows[i].cells[0].innerHTML.trim()
-					falta.codigo = iddisc;
-					falta.data = data;
-					falta.presenca = inputv[0].value
-					
-					var faltaAluno = JSON.stringify(falta);
-					
-					var mensagem = ""
-					$.ajax({
-						url : 'http://localhost:8080/api/'+'falta',
-						contentType: "application/json",
-						type : "POST",
-						data : faltaAluno
-					})
-					.done(function(msg){
-				        mensagem = msg
-					})
-					.fail(function(jqXHR, textStatus, msg){
-						console.log(msg);
-						mensagem = msg
-					});
-				}	
-				alert("Chamada realizada com sucesso");
-				location.reload();
+				if(data.length !== 0)
+					{
+					for (var i = 0, row; row = table.rows[i]; i++) {
+						table.rows[i]
+						var inputv = table.rows[i].cells[2].querySelectorAll("input");
+						
+						var falta = new Object();
+						falta.ra = table.rows[i].cells[0].innerHTML.trim()
+						falta.codigo = iddisc;
+						falta.data = data;
+						falta.presenca = inputv[0].value
+						
+						var faltaAluno = JSON.stringify(falta);
+						
+						var mensagem = ""
+						$.ajax({
+							url : 'http://localhost:8080/api/'+'falta',
+							contentType: "application/json",
+							type : "POST",
+							data : faltaAluno
+						})
+						.done(function(msg){
+					        mensagem = msg
+						})
+						.fail(function(jqXHR, textStatus, msg){
+							console.log(msg);
+							mensagem = msg
+						});
+					}
+					alert("Chamada realizada com sucesso");
+					location.reload();
+				}else{
+					alert("Selecione a data");
+				}
+				
 			});
 		</script>
 	</body>
